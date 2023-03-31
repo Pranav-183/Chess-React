@@ -20,13 +20,22 @@ const BoardContextProvider = ({ children }) => {
       newBoard[currRow][currCol].piece = ''
       delete newBoard[currRow][currCol].hasMoved
 
-      console.log(newBoard)
+      setBoard(newBoard)
+   }
+
+   const executeEnPassant = (enPassantedPiece) => {
+      const newBoard = board
+
+      const { col, row } = squareNumToGrid(enPassantedPiece)
+
+      newBoard[row][col].piece = ''
+      delete newBoard[row][col].hasMoved
 
       setBoard(newBoard)
    }
 
    return (
-      <BoardContext.Provider value={{ board, updateSquareNum }}>
+      <BoardContext.Provider value={{ board, updateSquareNum, executeEnPassant }}>
          {children}
       </BoardContext.Provider>
    )

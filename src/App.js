@@ -6,7 +6,6 @@ import { BoardContext } from './BoardContext';
 function App() {
   const all = useContext(BoardContext)
   const board = all.board
-  const updateSquareNum = all.updateSquareNum
 
   return (
     <div className="all">
@@ -14,7 +13,7 @@ function App() {
         {
           board.map((col, i1) => (
             col.map((row, i2) => (
-              <Square row={row} key={(i1 * 8) + (i2 + 1)} board={board} squareNum={row.squareNum} updateSquareNum={updateSquareNum} />
+              <Square row={row} key={(i1 * 8) + (i2 + 1)} squareNum={row.squareNum} />
             ))
           ))
         }

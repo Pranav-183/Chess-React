@@ -2,6 +2,8 @@ import { isWhitePiece, squareNumToGrid } from "./Extras"
 
 export const validPawnMoves = (oldSquareNum, board, isWhite, lastMove) => {
    const validMoves = []
+   let enPassantedPiece = ''
+
    const { col, row } = squareNumToGrid(oldSquareNum)
    const { col: f2col, row: f2row } = squareNumToGrid(isWhite ? oldSquareNum - 16 : oldSquareNum + 16)
    const { col: flcol, row: flrow } = squareNumToGrid(isWhite ? oldSquareNum - 9 : oldSquareNum + 9)
@@ -38,12 +40,17 @@ export const validPawnMoves = (oldSquareNum, board, isWhite, lastMove) => {
       }
    }
 
-   if (lastMove) {
-      
+   if (lastMove === board[lrow][lcol].coord && ((!isWhite && board[lrow][lcol].piece.includes('wp')) || (isWhite && board[lrow][lcol].piece.includes('bp')))) {
+      validMoves.push(board[flrow][flcol].coord)
+      enPassantedPiece = board[lrow][lcol].squareNum
+   }
+   
+   if (lastMove === board[rrow][rcol].coord && ((!isWhite && board[rrow][rcol].piece.includes('wp')) || (isWhite && board[rrow][rcol].piece.includes('bp')))) {
+      validMoves.push(board[frrow][frcol].coord)
+      enPassantedPiece = board[rrow][rcol].squareNum
    }
 
-   console.log(validMoves)
-   return validMoves
+   return { validMoves, enPassantedPiece }
 }
 
 // forwardLeftPawn - fl

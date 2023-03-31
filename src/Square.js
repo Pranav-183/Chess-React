@@ -1,12 +1,16 @@
 import { useContext } from 'react';
-import { isWhitePiece } from './Extras';
+import { BoardContext } from './BoardContext';
 import { MovesContext } from './MovesContext';
+import { isWhitePiece } from './Extras';
 import Piece from './Piece';
 import './styles/Square.css'
 import { validPawnMoves  } from './ValidPawnMoves';
 
-const Square = ({ row, board, squareNum, updateSquareNum }) => {
+const Square = ({ row, squareNum }) => {
    const movesContextData = useContext(MovesContext)
+   const boardContextAll = useContext(BoardContext)
+
+   const { board, updateSquareNum, executeEnPassant } = boardContextAll
    const { moves, updateWhiteMoves, updateBlackMoves, currentTurn, toggleCurrentTurn } = movesContextData
 
    const drop = e => {
@@ -24,10 +28,15 @@ const Square = ({ row, board, squareNum, updateSquareNum }) => {
       })
 
       const isWhite = isWhitePiece(piece)
-      const validPawnMovesArray = validPawnMoves(oldSquareNum, board, isWhite, currentTurn === 'white' ? moves.black[moves.length - 1] : moves.white[moves.length - 1])
+      const validPawnMovesData = validPawnMoves(oldSquareNum, board, isWhite, (currentTurn === 'white' ? moves.black[moves.black.length - 1] : moves.white[moves.white.length - 1]))
+      const validPawnMovesArray = validPawnMovesData.validMoves
+      const enPassantedPiece = validPawnMovesData.enPassantedPiece
 
       if (squareNum !== oldSquareNum && validPawnMovesArray.includes(coord) && (currentTurn === 'white' ? isWhite : !isWhite)) {
          updateSquareNum(oldSquareNum, squareNum)
+         if (enPassantedPiece !== '') {
+            executeEnPassant(enPassantedPiece)
+         }
          if (currentTurn === 'white') {
             updateWhiteMoves(coord)
          } else {
