@@ -1,0 +1,8 @@
+.piece {
+   height: 11vh;
+   cursor: pointer;
+}
+
+.piece.invisible {
+   opacity: 0;
+}

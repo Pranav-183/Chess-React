@@ -1,0 +1,19 @@
+*, *::before, *::after {
+  margin: 0;
+}
+
+.all {
+  background-color: #312E2B;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.board {
+  height: 90vh;
+  aspect-ratio: 1/1;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+}
