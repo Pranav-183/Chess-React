@@ -1,5 +1,6 @@
 {
   "name": "chess",
+  "homepage": "https://pranav-183.github.io/Chess-React/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

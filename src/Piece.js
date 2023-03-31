@@ -10,7 +10,7 @@ const Piece = ({ piece, squareNum }) => {
 
    return (
       <>
-         <img src={`pieces/${pieceWithNoNum}.png`} alt="chess piece" id={piece} className='piece' draggable={true} onDragStart={drag} />
+         <img src={`/Chess-React/pieces/${pieceWithNoNum}.png`} alt="chess piece" id={piece} className='piece' draggable={true} onDragStart={drag} />
       </>
    )
 }
