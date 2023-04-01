@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 import { BoardContext } from './BoardContext';
 import { MovesContext } from './MovesContext';
-import { isWhitePiece } from './Extras';
+import DropPawn from './DropPiece/DropPawn';
 import Piece from './Piece';
 import './styles/Square.css'
-import { validPawnMoves  } from './ValidPawnMoves';
+import DropBishop from './DropPiece/DropBishop';
 
 const Square = ({ row, squareNum }) => {
    const movesContextData = useContext(MovesContext)
@@ -27,22 +27,10 @@ const Square = ({ row, squareNum }) => {
          })
       })
 
-      const isWhite = isWhitePiece(piece)
-      const validPawnMovesData = validPawnMoves(oldSquareNum, board, isWhite, (currentTurn === 'white' ? moves.black[moves.black.length - 1] : moves.white[moves.white.length - 1]))
-      const validPawnMovesArray = validPawnMovesData.validMoves
-      const enPassantedPiece = validPawnMovesData.enPassantedPiece
-
-      if (squareNum !== oldSquareNum && validPawnMovesArray.includes(coord) && (currentTurn === 'white' ? isWhite : !isWhite)) {
-         updateSquareNum(oldSquareNum, squareNum)
-         if (enPassantedPiece !== '') {
-            executeEnPassant(enPassantedPiece)
-         }
-         if (currentTurn === 'white') {
-            updateWhiteMoves(coord)
-         } else {
-            updateBlackMoves(coord)
-         }
-         toggleCurrentTurn()
+      if (piece.includes('wp') || piece.includes('bp')) {
+         DropPawn(oldSquareNum, squareNum, piece, board, currentTurn, coord, moves, executeEnPassant, updateSquareNum, updateBlackMoves, updateWhiteMoves, toggleCurrentTurn)
+      } else if (piece.includes('wb') || piece.includes('bb')) {
+         DropBishop(oldSquareNum, squareNum, piece, board, currentTurn, coord, updateSquareNum, updateBlackMoves, updateWhiteMoves, toggleCurrentTurn)
       }
    }
 
