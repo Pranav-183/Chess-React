@@ -1,6 +1,6 @@
-import { isWhitePiece, squareNumToGrid } from "../Extras"
+import { isWhitePiece, squareNumToGrid } from "../Functions/Extras"
 
-export const validPawnMoves = (oldSquareNum, board, isWhite, lastMove) => {
+const validPawnMoves = (oldSquareNum, board, isWhite, lastMove) => {
    const validMoves = []
    let enPassantedPiece = '', movedTwoSquaresSquareNum = ''
 
@@ -53,6 +53,8 @@ export const validPawnMoves = (oldSquareNum, board, isWhite, lastMove) => {
 
    return { validMoves, enPassantedPiece, movedTwoSquaresSquareNum }
 }
+
+export default validPawnMoves
 
 // forwardLeftPawn - fl
 // forward - f

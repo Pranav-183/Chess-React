@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import './styles/App.css';
 import Square from './Square';
-import { BoardContext } from './BoardContext';
+import { BoardContext } from './Contexts/BoardContext';
 
 function App() {
   const all = useContext(BoardContext)

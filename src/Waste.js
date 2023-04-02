@@ -1,32 +1,18 @@
-// , squareNum: 41
-// , squareNum: 42
-// , squareNum: 43
-// , squareNum: 45
-// , squareNum: 46
-// , squareNum: 44
-// , squareNum: 47
-// , squareNum: 48
-// , squareNum: 33
-// , squareNum: 34
-// , squareNum: 35
-// , squareNum: 37
-// , squareNum: 38
-// , squareNum: 36
-// , squareNum: 39
-// , squareNum: 40
-// , squareNum: 25
-// , squareNum: 26
-// , squareNum: 29
-// , squareNum: 27
-// , squareNum: 28
-// , squareNum: 30
-// , squareNum: 31
-// , squareNum: 32
-// , squareNum: 17
-// , squareNum: 18
-// , squareNum: 19
-// , squareNum: 20
-// , squareNum: 21
-// , squareNum: 22
-// , squareNum: 23
-// , squareNum: 24
+// const testDiagonal = (col, row, board, isWhite, colAddtition, rowAddition, colUpdation, rowUpdation) => {
+//    const validMoves = []
+//    let testCol = col + colAddtition, testRow = row + rowAddition
+
+//    while ((colUpdation === 1 ? testCol <= 7 : testCol >= 0) && (rowUpdation === 1 ? testRow <= 7 : testRow >= 0) && (isWhite ? board[testRow][testCol].piece[0] !== 'w' : board[testRow][testCol].piece[0] !== 'b')) {
+//       if (isWhite ? board[testRow][testCol].piece[0] === 'b' : board[testRow][testCol].piece[0] === 'w') {
+//          validMoves.push(board[testRow][testCol].coord)
+//          break
+//       }
+
+//       validMoves.push(board[testRow][testCol].coord)
+
+//       testCol += colUpdation
+//       testRow += rowUpdation
+//    }
+
+//    return validMoves
+// }

@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import BoardContextProvider from './BoardContext';
-import MovesContextProvider from './MovesContext';
+import BoardContextProvider from './Contexts/BoardContext';
+import MovesContextProvider from './Contexts/MovesContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

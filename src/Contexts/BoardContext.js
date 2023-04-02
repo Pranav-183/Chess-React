@@ -1,11 +1,24 @@
 import { createContext, useState } from "react";
-import { squareNumToGrid } from "./Extras";
-import StartingPosition from "./StartingPosition";
+import { squareNumToGrid } from "../Functions/Extras";
+import StartingPosition from "../Template/StartingPosition";
 
 export const BoardContext = createContext()
 
 const BoardContextProvider = ({ children }) => {
    const [board, setBoard] = useState(StartingPosition)
+   
+   const opponentKingCoord = (isWhite) => {
+      let kingCoord
+      board.forEach(row => {
+         row.forEach(col => {
+            if (isWhite ? col.piece === 'bk' : col.piece === 'wk') {
+               kingCoord = col.coord
+            }
+         })
+      })
+
+      return kingCoord
+   }
 
    const updateSquareNum = (currSquareNum, newSquareNum, movedTwoSquares) => {
       const newBoard = board
@@ -22,7 +35,7 @@ const BoardContextProvider = ({ children }) => {
          newBoard[currRow][currCol].piece = ''
          delete newBoard[currRow][currCol].hasMoved
          delete newBoard[currRow][currCol].movedTwoSquares
-      } else if (piece.includes('wb') || piece.includes('bb')) {
+      } else if (piece.includes('wb') || piece.includes('bb') || piece.includes('wr') || piece.includes('br') || piece === 'wq' || piece === 'bq') {
          newBoard[newRow][newCol].piece = piece
          
          newBoard[currRow][currCol].piece = ''

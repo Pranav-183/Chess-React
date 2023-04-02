@@ -1,5 +1,5 @@
-import { isWhitePiece } from "../Extras"
-import { validPawnMoves } from "../ValidMoves/ValidPawnMoves"
+import { isWhitePiece } from "../Functions/Extras"
+import validPawnMoves from "../ValidMoves/ValidPawnMoves"
 
 const DropPawnData = (oldSquareNum, board, isWhite, currentTurn, moves) => {
    const validMovesData = validPawnMoves(oldSquareNum, board, isWhite, (currentTurn === 'white' ? moves.black[moves.black.length - 1] : moves.white[moves.white.length - 1]))

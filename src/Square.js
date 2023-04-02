@@ -1,10 +1,10 @@
 import { useContext } from 'react';
-import { BoardContext } from './BoardContext';
-import { MovesContext } from './MovesContext';
+import { BoardContext } from './Contexts/BoardContext';
+import { MovesContext } from './Contexts/MovesContext';
 import DropPawn from './DropPiece/DropPawn';
 import Piece from './Piece';
 import './styles/Square.css'
-import DropBishop from './DropPiece/DropBishop';
+import DropLinePiece from './DropPiece/DropLinePiece';
 
 const Square = ({ row, squareNum }) => {
    const movesContextData = useContext(MovesContext)
@@ -29,8 +29,10 @@ const Square = ({ row, squareNum }) => {
 
       if (piece.includes('wp') || piece.includes('bp')) {
          DropPawn(oldSquareNum, squareNum, piece, board, currentTurn, coord, moves, executeEnPassant, updateSquareNum, updateBlackMoves, updateWhiteMoves, toggleCurrentTurn)
-      } else if (piece.includes('wb') || piece.includes('bb')) {
-         DropBishop(oldSquareNum, squareNum, piece, board, currentTurn, coord, updateSquareNum, updateBlackMoves, updateWhiteMoves, toggleCurrentTurn)
+      } else if (piece.includes('wb') || piece.includes('bb') || piece.includes('wr') || piece.includes('br') || piece === 'wq' || piece === 'bq') {
+         DropLinePiece(oldSquareNum, squareNum, piece, board, currentTurn, coord, updateSquareNum, updateBlackMoves, updateWhiteMoves, toggleCurrentTurn)
+      } else if (piece.includes('wn') || piece.includes('bn')) {
+         
       }
    }
 
