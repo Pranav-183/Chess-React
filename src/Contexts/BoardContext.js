@@ -1,12 +1,12 @@
 import { createContext, useState } from "react";
-import { squareNumToGrid } from "../Functions/Extras";
+import { isMajorPiece, squareNumToGrid } from "../Functions/Extras";
 import StartingPosition from "../Template/StartingPosition";
 
 export const BoardContext = createContext()
 
 const BoardContextProvider = ({ children }) => {
    const [board, setBoard] = useState(StartingPosition)
-   
+
    const opponentKingCoord = (isWhite) => {
       let kingCoord
       board.forEach(row => {
@@ -35,16 +35,28 @@ const BoardContextProvider = ({ children }) => {
          newBoard[currRow][currCol].piece = ''
          delete newBoard[currRow][currCol].hasMoved
          delete newBoard[currRow][currCol].movedTwoSquares
-      } else if (piece.includes('wb') || piece.includes('bb') || piece.includes('wr') || piece.includes('br') || piece === 'wq' || piece === 'bq') {
+      } else if (isMajorPiece(piece)) {
          newBoard[newRow][newCol].piece = piece
-         
+         if (piece.includes('wr') || piece.includes('br')) {
+            newBoard[newRow][newCol].hasMoved = true
+         }
+
          newBoard[currRow][currCol].piece = ''
+         if (piece.includes('wr') || piece.includes('br')) {
+            delete newBoard[currRow][currCol].hasMoved
+         }
+      } else if (piece === 'wk' || piece === 'bk') {
+         newBoard[newRow][newCol].piece = piece
+         newBoard[newRow][newCol].hasMoved = true
+
+         newBoard[currRow][currCol].piece = ''
+         delete newBoard[currRow][currCol].hasMoved
       }
 
       setBoard(newBoard)
    }
 
-   const executeEnPassant = (enPassantedPiece) => {
+   const executeEnPassant = enPassantedPiece => {
       const newBoard = board
 
       const { col, row } = squareNumToGrid(enPassantedPiece)
@@ -55,8 +67,13 @@ const BoardContextProvider = ({ children }) => {
       setBoard(newBoard)
    }
 
+   const executeCastle = (currRookSquareNum, rookNum) => {
+      const newRookSquareNum = rookNum === 1 ? currRookSquareNum + 3 : currRookSquareNum - 2
+      updateSquareNum(currRookSquareNum, newRookSquareNum)
+   }
+
    return (
-      <BoardContext.Provider value={{ board, updateSquareNum, executeEnPassant }}>
+      <BoardContext.Provider value={{ board, updateSquareNum, executeEnPassant, executeCastle }}>
          {children}
       </BoardContext.Provider>
    )

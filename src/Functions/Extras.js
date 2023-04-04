@@ -19,4 +19,12 @@ const isWhitePiece = piece => {
    }
 }
 
-export { squareNumToGrid, gridToSquareNum, isWhitePiece }
+const isWithinGridLimits = colOrRow => {
+   return colOrRow <= 7 && colOrRow >= 0
+}
+
+const isMajorPiece = piece => {
+   return piece.includes('wr') || piece.includes('br') || piece.includes('wb') || piece.includes('bb') || piece.includes('wn') || piece.includes('bn') || piece === 'wq' || piece === 'bq'
+}
+
+export { squareNumToGrid, gridToSquareNum, isWhitePiece, isWithinGridLimits, isMajorPiece }
